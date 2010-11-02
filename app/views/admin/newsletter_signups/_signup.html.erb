@@ -1,0 +1,6 @@
+<tr>
+  <% %w(first_name last_name email street_address city state zip).each do |e| -%>
+    <td class="<%= e %>"><%= signup.send(e) %></td>
+  <% end -%>
+  <td class="exported"><%= signup.exported ? image_tag("accept.png", :alt => "Checkmark", :size => "16x16") : "&nbsp;" %></td>
+</tr>

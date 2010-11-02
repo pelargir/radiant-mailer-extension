@@ -5,6 +5,7 @@ class MailerExtension < Radiant::Extension
 
   define_routes do |map|
     map.resources :mail, :path_prefix => "/pages/:page_id", :controller => "mail"
+    map.namespace(:admin) { |admin| admin.resources :newsletter_signups }
   end
 
   def activate
@@ -12,6 +13,7 @@ class MailerExtension < Radiant::Extension
       include MailerTags
       attr_accessor :last_mail
     end
+    admin.tabs.add "Newsletter", "/admin/newsletter_signups", :after => "Layouts", :visibility => [:all]
   end
   
   def deactivate

@@ -1,0 +1,42 @@
+<h1>Newsletter Signups</h1>
+<h3><%= link_to "Download CSV", :format => "csv" %></h3>
+
+<style type="text/css">
+table.signups {
+	border-width: thin thin thin thin;
+	border-spacing: 0px;
+	border-style: outset outset outset outset;
+	border-color: gray gray gray gray;
+	border-collapse: collapse;
+	background-color: white;
+}
+table.signups th {
+	border-width: thin thin thin thin;
+	padding: 4px 4px 4px 4px;
+	border-style: outset outset outset outset;
+	border-color: gray gray gray gray;
+	background-color: white;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.signups td {
+	border-width: thin thin thin thin;
+	padding: 4px 4px 4px 4px;
+	border-style: outset outset outset outset;
+	border-color: gray gray gray gray;
+	background-color: white;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+</style>
+
+<% if @signups.any? -%>
+  <table class="signups">
+    <tr>
+      <% %w(first_name last_name email street_address city state zip exported).each do |e| -%>
+        <th class="<%= e %>"><%= e.titleize %></th>
+      <% end -%>
+    </tr>
+    <%= render :partial => "signup", :collection => @signups %>
+  </table>
+<% else -%>
+  <em>No signups have been created yet.</em>
+<% end -%>
