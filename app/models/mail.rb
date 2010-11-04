@@ -100,10 +100,11 @@ class Mail
       headers['Sender'] = sender
     end
 
+    subject = data[:subject] || config[:subject] || "Form Mail from #{page.request.host}"
     Mailer.deliver_generic_mail(
       :recipients => recipients,
       :from => from,
-      :subject => data[:subject] || config[:subject] || "Form Mail from #{page.request.host}",
+      :subject => subject,
       :plain_body => plain_body,
       :html_body => html_body,
       :cc => data[config[:cc_field]] || config[:cc] || "",
@@ -111,7 +112,7 @@ class Mail
     )
     
     # Insert database record for this signup
-    if data[:subject] && data[:subject].include?("SAM-e Updates")
+    if subject.include? "SAM-e Updates"
       signup = NewsletterSignup.new
       signup.parse_body plain_body
       success = signup.save
