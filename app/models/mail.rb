@@ -111,10 +111,12 @@ class Mail
     )
     
     # Insert database record for this signup
-    signup = NewsletterSignup.new
-    signup.parse_body plain_body
-    success = signup.save
-    Rails.logger.error("Unable to save newsletter signup: #{signup.errors.full_messages.join(' ')}") unless success
+    if data[:subject] && data[:subject].include? "SAM-e Updates"
+      signup = NewsletterSignup.new
+      signup.parse_body plain_body
+      success = signup.save
+      Rails.logger.error("Unable to save newsletter signup: #{signup.errors.full_messages.join(' ')}") unless success
+    end
     
   rescue Net::SMTPFatalError => e
     errors['form'] = e.message
