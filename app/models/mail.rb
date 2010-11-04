@@ -111,7 +111,7 @@ class Mail
     )
     
     # Insert database record for this signup
-    if data[:subject] && data[:subject].include? "SAM-e Updates"
+    if data[:subject] && data[:subject].include?("SAM-e Updates")
       signup = NewsletterSignup.new
       signup.parse_body plain_body
       success = signup.save
