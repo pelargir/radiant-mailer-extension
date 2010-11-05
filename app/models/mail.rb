@@ -119,6 +119,9 @@ class Mail
       Rails.logger.error("Unable to save newsletter signup: #{signup.errors.full_messages.join(' ')}") unless success
     end
     
+    # success
+    return true
+    
   rescue Net::SMTPFatalError => e
     errors['form'] = e.message
     @valid = false
